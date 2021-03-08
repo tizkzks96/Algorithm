@@ -34,7 +34,6 @@ namespace A10989
             }
 
             //Console.WriteLine(sb);
-
         }
 
         static int[] GetTestCase()
