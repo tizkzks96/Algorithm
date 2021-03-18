@@ -44,10 +44,8 @@ namespace A10814
                 }
                 else
                 {
-                    if()
-                    return 0;
+                    return a.Key.CompareTo(b.Key);
                 }
-                Console.WriteLine(values);
             });
 
             return values;
@@ -59,7 +57,6 @@ namespace A10814
             for (int i = 0; i < count; i++)
             {
                 string[] value = sr.ReadLine().Split(" ");
-                int index = i;
                 KeyValuePair<int, string> user = new KeyValuePair<int, string>(int.Parse(value[0]), value[1]);
                 KeyValuePair<int, KeyValuePair<int, string>> item = new KeyValuePair<int, KeyValuePair<int, string>>(i, user);
                 values.Add(item);
@@ -72,7 +69,7 @@ namespace A10814
             sb.Clear();
             foreach (var item in values)
             {
-                sb.AppendLine($"{item.Key} {item.Value}");
+                sb.AppendLine($"{item.Value.Key} {item.Value.Value}");
             }
             sw.Write(sb);
         }
