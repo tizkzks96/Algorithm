@@ -27,21 +27,20 @@ namespace A15649
             sw.AutoFlush = true;
 
             var values = GetCaseValues();
-
-            Queue<int> remain = new Queue<int>();
+            List<int> remain = new List<int>();
 
             for (int i = 1; i <= values.Key; i++)
             {
-                remain.Enqueue(i);
+                remain.Add(i);
             }
 
             BackTracking(values.Value, 0, remain, new List<int>());
             sw.WriteLine(sb);
         }
 
-        private void BackTracking(int targetDepth, int currentDepth, Queue<int> remain, List<int> list, int addNum = 0)
+        private void BackTracking(int targetDepth, int currentDepth, List<int> remain, List<int> list)
         {
-            if(targetDepth < currentDepth)
+            if (targetDepth == currentDepth)
             {
                 foreach (var item in list)
                 {
@@ -50,15 +49,15 @@ namespace A15649
                 sb.AppendLine();
                 return;
             }
-            if (addNum != 0)
-            {
-                list.Add(addNum);
-            }
+            
             for (int i = 0; i < remain.Count; i++)
             {
-                addNum = remain.Dequeue();
-                BackTracking(targetDepth, currentDepth + 1, remain, list, addNum);
-                remain.Enqueue(addNum);
+                int addNum = remain[i];
+                List<int> newList = new List<int>(list);
+                newList.Add(addNum);
+                List<int> newRemain = new List<int>(remain);
+                newRemain.Remove(addNum);
+                BackTracking(targetDepth, currentDepth + 1, newRemain, newList);
             }
 
             return;
