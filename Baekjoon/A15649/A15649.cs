@@ -28,48 +28,49 @@ namespace A15649
 
             var values = GetCaseValues();
 
+            Queue<int> remain = new Queue<int>();
 
-        }
-
-        private void BackTracking(KeyValuePair<int, int> values)
-        {
-            Tree
-            <string> answer = new List<string>();
-            Stack<int> list = new Stack<int>();
             for (int i = 1; i <= values.Key; i++)
             {
-                list.Push(i);
+                remain.Enqueue(i);
             }
 
-            int riseCount = values.Value;
+            BackTracking(values.Value, 0, remain, new List<int>());
+            sw.WriteLine(sb);
+        }
 
-            while (riseCount <= 0)
+        private void BackTracking(int targetDepth, int currentDepth, Queue<int> remain, List<int> list, int addNum = 0)
+        {
+            if(targetDepth < currentDepth)
             {
-                string value = "";
-                for (int i = 1; i < riseCount; i++)
+                foreach (var item in list)
                 {
-                    value += i;
+                    sb.Append($"{item} ");
                 }
+                sb.AppendLine();
+                return;
             }
-            
+            if (addNum != 0)
+            {
+                list.Add(addNum);
+            }
+            for (int i = 0; i < remain.Count; i++)
+            {
+                addNum = remain.Dequeue();
+                BackTracking(targetDepth, currentDepth + 1, remain, list, addNum);
+                remain.Enqueue(addNum);
+            }
 
-
+            return;
         }
 
         private KeyValuePair<int, int> GetCaseValues()
         {
-            KeyValuePair<int, int> caseValues = new KeyValuePair<int, int>();
-
             string[] value = sr.ReadLine().Split(" ");
 
-            caseValues = new KeyValuePair<int, int>(int.Parse(value[0]), int.Parse(value[1]));
+            KeyValuePair<int, int> caseValues = new KeyValuePair<int, int>(int.Parse(value[0]), int.Parse(value[1]));
 
             return caseValues;
         }
-    }
-
-    class Tree
-    {
-
     }
 }
