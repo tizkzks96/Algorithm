@@ -87,13 +87,13 @@ namespace A9663
 
                 if(positions[y] == -1)
                 {
-                    y--;
-                    positions[y - 1]++;
-                    if(positions[y - 1] > size)
+                    if (positions[y - 1] > size)
                     {
                         y--;
                         positions[y - 1]++;
                     }
+                    y--;
+                    positions[y - 1]++;
                 }
             }
         }
